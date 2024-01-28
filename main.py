@@ -13,7 +13,7 @@ with open("DemoSet.csv", newline='\n') as fp:
 
 dates = [i for i in range(1, 21)]
 prices = [float(row[1].replace(',', '.')) for row in data]
-sales = [float(row[2].replace(',', '.')) for row in data]
+sales = [int(row[2]) for row in data]
 
 fig, ax = plt.subplots(2, 1, figsize=(12, 7))
 
@@ -161,11 +161,11 @@ print(v_sale)
 
 # Значение коэффициента Джинни индекса Херфиндаля
 
-G_price = ((2 * sum([(i + 1) * prices[i] for i in range(n)])) / (
+G_price = ((2 * sum([(i + 1) * prices_sorted[i] for i in range(n)])) / (
             n * sum(prices))) - ((n + 1) / n)
 H_price = sum([(price / sum(prices)) ** 2 for price in prices])
 
-G_sale = ((2 * sum([dates[i] * sales[i] for i in range(n)])) / (
+G_sale = ((2 * sum([dates[i] * sales_sorted[i] for i in range(n)])) / (
         n * sum(sales))) - ((n + 1) / n)
 H_sale = sum([(sale / sum(sales)) ** 2 for sale in sales])
 
@@ -176,3 +176,4 @@ print(f'Коэффициент Джинни: {G_price}\n'
 print('Продажи:')
 print(f'Коэффициент Джинни: {G_sale}\n'
       f'Индекс Херфиндаля: {H_sale}\n')
+
